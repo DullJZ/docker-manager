@@ -10,6 +10,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Read VERSION file
+        id: read_version
+        run: echo "version=$(cat VERSION)" >> $GITHUB_OUTPUT
+
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
@@ -27,8 +31,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
+          tag_name: ${{ steps.read_version.outputs.version }}
+          release_name: Release ${{ steps.read_version.outputs.version }}
           draft: false
           prerelease: false
 
@@ -37,7 +41,7 @@ jobs:
           for file in build/*; do
             if [ -f "$file" ]; then
               echo "Uploading $file"
-              gh release upload ${{ github.ref_name }} "$file" --repo ${{ github.repository }}
+                gh release upload ${{ steps.read_version.outputs.version }} "$file" --repo ${{ github.repository }}
             fi
           done
         env:
