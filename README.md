@@ -18,15 +18,37 @@ Docker Manager is a Docker management API service developed in Go, providing ric
 - Token Whitelist Authentication (optional)
 
 ## Quick Start
+
+Docker should be installed and running on your system, and the user running this service must have Docker permissions.
+
+### Run from Binary
+1. Download the latest binary from the [Release page](https://github.com/DullJZ/docker-manager/releases)
+2. Grant execute permission:
+	```bash
+	chmod +x docker-manager
+	```
+3. Token authentication (optional):
+	Create a `tokens.txt` file in the same directory to enable token whitelist authentication.
+4. Switch to root or a user with Docker access, then start the service:
+	```bash
+	sudo su # switch to root
+	./docker-manager --ip 127.0.0.1 --port 15000
+	```
+
+### Run from Source
 1. Install dependencies (Docker environment required locally)
-2. Start the service:
+	```bash
+	go mod tidy
+	```
+2. Token authentication (optional):
+	Create a `tokens.txt` file in the same directory to enable token whitelist authentication.
+3. Start the service:
 	```bash
 	go run api.go funcs.go
 	# Or build and run
 	go build -o docker-manager api.go funcs.go
 	./docker-manager --ip 127.0.0.1 --port 15000
 	```
-3. Optional: Create a `tokens.txt` file in the same directory to enable token whitelist authentication.
 
 ## API Endpoints
 All endpoints support POST/GET requests. Some require the Authorization header (if token validation is enabled).

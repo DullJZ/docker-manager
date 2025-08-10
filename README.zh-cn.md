@@ -18,15 +18,38 @@ Docker Manager 是一个基于 Go 语言开发的 Docker 管理 API 服务，提
 - Token 白名单鉴权（可选）
 
 ## 快速开始
+
+运行 Docker Manager 的服务器上需要安装好 Docker 环境，并确保当前用户有权限访问 Docker。
+
+### 从二进制包运行
+1. 下载最新的二进制包：[Release 页面](https://github.com/DullJZ/docker-manager/releases)
+2. 赋予执行权限：
+   ```bash
+   chmod +x docker-manager
+   ```
+3. 鉴权Token设置（可选）：
+   在同目录下创建 `tokens.txt` 文件，启用 Token 白名单鉴权。
+4. 切换到 root 用户或有权限访问 Docker 的用户，启动服务：
+   ```bash
+   sudo su # 切换到 root
+   ./docker-manager --ip 127.0.0.1 --port 15000
+   ```
+
+
+### 从源码运行
 1. 安装依赖（需本地已安装 Docker 环境）
-2. 启动服务：
+	```bash
+	go mod tidy
+	```
+2. 鉴权Token设置（可选）：
+   在同目录下创建 `tokens.txt` 文件，启用 Token 白名单鉴权。
+3. 启动服务：
 	```bash
 	go run api.go funcs.go
 	# 或编译后运行
 	go build -o docker-manager api.go funcs.go
 	./docker-manager --ip 127.0.0.1 --port 15000
 	```
-3. 可选：在同目录下创建 `tokens.txt` 文件，启用 Token 白名单鉴权。
 
 ## API 接口说明
 所有接口均需以 POST/GET 方式访问，部分接口需携带 Authorization 头部（如启用 Token 校验）。
