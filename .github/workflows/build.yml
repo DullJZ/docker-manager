@@ -67,5 +67,5 @@ jobs:
           file: Dockerfile
           push: true
           tags: |
-            ${{ github.repository }}:latest
-            ${{ github.repository }}:${{ steps.read_version.outputs.version }}
+            dulljz/docker-manager:latest
+            dulljz/docker-manager:${{ steps.read_version.outputs.version }}
