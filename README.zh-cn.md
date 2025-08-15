@@ -35,6 +35,27 @@ Docker Manager 是一个基于 Go 语言开发的 Docker 管理 API 服务，提
    ./docker-manager --ip 127.0.0.1 --port 15000
    ```
 
+### 从Docker镜像运行
+
+1. 创建并切换到docker-manager目录
+   ```bash
+   mkdir docker-manager
+   cd docker-manager
+   ```
+2. 下载`docker-compose.yml`文件并修改
+   ```
+   wget https://raw.githubusercontent.com/DullJZ/docker-manager/refs/heads/main/docker-compose.yml
+   nano docker-compose.yml
+   ```
+3. 创建并修改`tokens.txt`文件，添加token（可选）
+   ```
+   echo "your_token" > tokens.txt
+   ```
+4. 启动服务：
+   ```bash
+   docker-compose up -d
+   ```
+   docker-manager会自动监听主机的15000端口
 
 ### 从源码运行
 1. 安装依赖（需本地已安装 Docker 环境）

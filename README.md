@@ -35,6 +35,27 @@ Docker should be installed and running on your system, and the user running this
 	./docker-manager --ip 127.0.0.1 --port 15000
 	```
 
+### Run from Docker Image
+1. Create and switch to the docker-manager directory:
+	```bash
+	mkdir docker-manager
+	cd docker-manager
+	```
+2. Download the `docker-compose.yml` file and edit as needed:
+	```bash
+	wget https://raw.githubusercontent.com/DullJZ/docker-manager/refs/heads/main/docker-compose.yml
+	nano docker-compose.yml
+	```
+3. (Optional) Create and edit `tokens.txt` to add your token:
+	```bash
+	echo "your_token" > tokens.txt
+	```
+4. Start the service:
+	```bash
+	docker-compose up -d
+	```
+	The service will listen on port 15000 by default.
+
 ### Run from Source
 1. Install dependencies (Docker environment required locally)
 	```bash
