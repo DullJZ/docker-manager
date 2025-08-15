@@ -1,0 +1,7 @@
+# Build outputs
+build/
+*.exe
+
+# Git files
+.git/
+.github/

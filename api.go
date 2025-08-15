@@ -80,6 +80,11 @@ func tokenAuthMiddleware(c *gin.Context) {
 		c.Next()
 		return
 	}
+	// 如果为 GET /api，直接放行
+	if c.Request.Method == http.MethodGet && c.Request.URL.Path == "/api" {
+		c.Next()
+		return
+	}
 	token := c.GetHeader("Authorization")
 	if _, ok := tokenWhitelist[token]; !ok {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "invalid or missing token", "status": "fail"})
@@ -225,7 +230,7 @@ func main() {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusOK, version) // Use the 'version' variable instead of calling GetDockerVersion directly
+		c.JSON(http.StatusOK, version)
 	})
 
 	r.GET("/api/get_running_containers", func(c *gin.Context) {

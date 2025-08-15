@@ -1,0 +1,21 @@
+services:
+  docker-manager:
+    image: dulljz/docker-manager:latest
+    container_name: docker-manager
+    ports:
+      - "15000:15000"
+    volumes:
+      # 挂载Docker socket以便管理Docker
+      - /var/run/docker.sock:/var/run/docker.sock
+      # 可选：挂载tokens文件
+      - ./tokens.txt:/app/tokens.txt:ro
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    restart: unless-stopped
+    # 健康检查
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:15000/api"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
