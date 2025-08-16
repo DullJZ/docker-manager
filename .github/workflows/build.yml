@@ -2,6 +2,8 @@ name: Build docker-manager
 
 on:
   push:
+    paths:
+      - 'VERSION'
     branches:
       - main
 
