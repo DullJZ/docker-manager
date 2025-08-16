@@ -79,6 +79,8 @@ All endpoints support POST/GET requests. Some require the Authorization header (
 - `POST /api/delete_image` Delete image
 - `POST /api/list_images` List images
 - `POST /api/search_image` Fuzzy search images
+
+### Docker
 - `GET /api/get_docker_info` Docker info
 - `GET /api/get_docker_version` Docker version
 

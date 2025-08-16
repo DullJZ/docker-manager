@@ -2,6 +2,8 @@ name: Build docker-manager
 
 on:
   push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -22,8 +24,30 @@ jobs:
       - name: Install UPX
         run: sudo apt-get update && sudo apt-get install -y upx
 
-      - name: Build binaries
-        run: bash build.sh
+      - name: Build binaries for Windows AMD64
+        run: CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o build/docker-manager_windows_amd64.exe
+
+      - name: Build binaries for Windows 386
+        run: CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -o build/docker-manager_windows_386.exe
+
+      - name: Build binaries for Linux AMD64
+        run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o build/docker-manager_linux_amd64
+
+      - name: Build binaries for Linux 386
+        run: CGO_ENABLED=0 GOOS=linux GOARCH=386 go build -o build/docker-manager_linux_386
+
+      - name: Build binaries for Linux ARM64
+        run: CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o build/docker-manager_linux_arm64
+
+      - name: Build binaries for Darwin AMD64
+        run: CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o build/docker-manager_darwin_amd64
+
+      - name: Build binaries for Darwin ARM64
+        run: CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -o build/docker-manager_darwin_arm64
+
+      - name: Compress binaries with UPX
+        run: |
+          upx --best --lzma build/*
 
       - name: Create Release
         id: create_release

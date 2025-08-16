@@ -80,6 +80,8 @@ Docker Manager 是一个基于 Go 语言开发的 Docker 管理 API 服务，提
 - `POST /api/delete_image` 删除镜像
 - `POST /api/list_images` 镜像列表
 - `POST /api/search_image` 镜像模糊搜索
+
+### Docker信息
 - `GET /api/get_docker_info` Docker 信息
 - `GET /api/get_docker_version` Docker 版本
 
