@@ -47,7 +47,7 @@ jobs:
 
       - name: Compress binaries with UPX
         run: |
-          upx --best --lzma build/*
+          find build/ -type f ! -name '*darwin*' -exec upx --best --lzma {} +
 
       - name: Create Release
         id: create_release
